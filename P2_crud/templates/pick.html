@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pick Student</title>
+</head>
+<body>
+
+    <h2>Pick Student</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Roll Number:</label>
+        <input type="text" name="roll_number" required>
+        <br><br>
+
+        <input type="submit" value="Submit">
+
+    </form>
+</html>
