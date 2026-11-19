@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Edit Student Name</title>
+    </head>
+    <body>
+        <h1>Edit Student Name</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="roll_number">Roll Number:</label>
+            <input type="text" id="roll_number" name="roll_number" required>
+            <button type="submit">Update Name</button>
+        </form>
+    </body>
+</html>

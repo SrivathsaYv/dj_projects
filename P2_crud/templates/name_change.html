@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Edit Name</title>
+    </head>
+    <body>
+        <form method="POST" action="../db/update/name">
+            {% csrf_token %}
+            <label for="old_name">Old Name:</label>
+            <input type="text" id="old_name" name="old_name" value="{{ name }}">
+            <label for="new_name">New Name:</label>
+            <input type="text" id="new_name" name="new_name" value="">
+            <input type="hidden" id="roll_number" name="roll_number" value="{{ roll_number }}">
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

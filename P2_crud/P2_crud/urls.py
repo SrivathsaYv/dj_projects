@@ -19,4 +19,9 @@ from student import views
 urlpatterns = [
     path('student_create/', views.create),
     path('student_pick/', views.pick),
+    path('student/edit/name', views.edit_name),
+    path('student/db/update/name', views.update_name),
+    # path('student/edit/email', views.edit_email),
+    # path('student/edit/roll_no', views.edit_roll_no),
+    # path('student/edit/dob', views.edit_dob),
 ]

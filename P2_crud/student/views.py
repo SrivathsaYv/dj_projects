@@ -55,3 +55,27 @@ def pick(request):
         email = data[0][3]
         roll_no = data[0][4]
         return render(request, 'display_student.html', {'name': name, 'dob': dob, 'email': email, 'roll_number': roll_no})
+def edit_name(request):
+    if request.method == 'GET':
+        # form to pick the target student..
+        return render(request, 'edit_name.html')
+    elif request.method == 'POST':
+        # Next for to edit..
+        roll_number = request.POST.get('roll_number')
+        name = select(roll_number)[0][1]
+        return render(request, 'name_change.html', context={'roll_number': roll_number, 'name': name})
+
+def update_name(request):
+    if request.method == 'POST':
+        import sqlite3
+        db=r"C:\Users\acer\Desktop\Projects\P2_crud\db.sqlite3"
+        db=sqlite3.connect(db)
+        cursor=db.cursor()
+        new_name = request.POST.get('new_name')
+        roll_number = request.POST.get('roll_number')
+        s1=f"UPDATE students SET student_name='{new_name}' WHERE roll_number='{roll_number}'"
+        cursor.execute(s1)
+        db.commit()
+        db.close()
+    return render(request, 'status.html', {'message': 'Name updated in DB successfully!'})
+
