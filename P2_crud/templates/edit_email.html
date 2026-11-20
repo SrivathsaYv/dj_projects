@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student Email</title>
+</head>
+<body>
+
+    <h1>Edit Student Email</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="roll_number">Roll Number:</label>
+
+        <input type="text"
+               id="roll_number"
+               name="roll_number"
+               required>
+
+        <button type="submit">Update Email</button>
+
+    </form>
+
+</body>
+</html>

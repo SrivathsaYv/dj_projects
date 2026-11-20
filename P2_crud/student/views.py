@@ -1,8 +1,11 @@
 from django.shortcuts import render
+from django.conf import settings
+import sqlite3
+import os
 
 def insert(request):
     import sqlite3
-    db=r"C:\Users\acer\Desktop\Projects\P2_crud\db.sqlite3"
+    db = os.path.join(settings.BASE_DIR, 'db.sqlite3')
     db=sqlite3.connect(db)
     cursor=db.cursor()
     s1="""CREATE TABLE IF NOT EXISTS students (
@@ -30,7 +33,7 @@ VALUES ('{student_name}', '{date_of_birth}', '{email}', '{roll_number}');
 
 def select(rollno):
     import sqlite3
-    db=r"C:\Users\acer\Desktop\Projects\P2_crud\db.sqlite3"
+    db = os.path.join(settings.BASE_DIR, 'db.sqlite3')
     db=sqlite3.connect(db)
     cursor=db.cursor()
     s1=f"SELECT * FROM students WHERE roll_number='{rollno}'"
@@ -68,7 +71,7 @@ def edit_name(request):
 def update_name(request):
     if request.method == 'POST':
         import sqlite3
-        db=r"C:\Users\acer\Desktop\Projects\P2_crud\db.sqlite3"
+        db = os.path.join(settings.BASE_DIR, 'db.sqlite3')
         db=sqlite3.connect(db)
         cursor=db.cursor()
         new_name = request.POST.get('new_name')
@@ -79,3 +82,48 @@ def update_name(request):
         db.close()
     return render(request, 'status.html', {'message': 'Name updated in DB successfully!'})
 
+def edit_email(request):
+    if request.method == 'GET':
+        return render(request, 'edit_email.html')
+
+    elif request.method == 'POST':
+        roll_number = request.POST.get('roll_number')
+
+        email = select(roll_number)[0][3]
+
+        return render(
+            request,
+            'email_change.html',
+            context={
+                'roll_number': roll_number,
+                'email': email
+            }
+        )
+def update_email(request):
+    if request.method == 'POST':
+        import sqlite3
+
+        db = os.path.join(settings.BASE_DIR, 'db.sqlite3')
+
+        db = sqlite3.connect(db)
+        cursor = db.cursor()
+
+        new_email = request.POST.get('new_email')
+        roll_number = request.POST.get('roll_number')
+
+        s1 = f"""
+        UPDATE students
+        SET email = '{new_email}'
+        WHERE roll_number = '{roll_number}'
+        """
+
+        cursor.execute(s1)
+
+        db.commit()
+        db.close()
+
+    return render(
+        request,
+        'status.html',
+        {'message': 'Email updated in DB successfully!'}
+    )
