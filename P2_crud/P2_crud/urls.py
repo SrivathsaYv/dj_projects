@@ -11,4 +11,7 @@ urlpatterns = [
     # Add these two URLs for Email Update
     path('student/edit/email', views.edit_email),
     path('student/db/update/email', views.update_email),
+
+    path('student/edit/dob', views.edit_dob),
+    path('student/db/update/dob', views.update_dob),
 ]

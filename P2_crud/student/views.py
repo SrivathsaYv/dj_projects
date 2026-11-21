@@ -127,3 +127,55 @@ def update_email(request):
         'status.html',
         {'message': 'Email updated in DB successfully!'}
     )
+#updating DOB part 
+def edit_dob(request):
+
+    if request.method == 'GET':
+        return render(request, 'edit_dob.html')
+
+    elif request.method == 'POST':
+
+        roll_number = request.POST.get('roll_number')
+
+        dob = select(roll_number)[0][2]
+
+        return render(
+            request,
+            'dob_change.html',
+            context={
+                'roll_number': roll_number,
+                'dob': dob
+            }
+        )
+def update_dob(request):
+
+    if request.method == 'POST':
+
+        import sqlite3
+        import os
+        from django.conf import settings
+
+        db = os.path.join(settings.BASE_DIR, 'db.sqlite3')
+
+        db = sqlite3.connect(db)
+        cursor = db.cursor()
+
+        new_dob = request.POST.get('new_dob')
+        roll_number = request.POST.get('roll_number')
+
+        s1 = """
+        UPDATE students
+        SET dob = ?
+        WHERE roll_number = ?
+        """
+
+        cursor.execute(s1, (new_dob, roll_number))
+
+        db.commit()
+        db.close()
+
+    return render(
+        request,
+        'status.html',
+        {'message': 'DOB updated in DB successfully!'}
+    )

@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change DOB</title>
+</head>
+<body>
+
+    <h1>Edit Date of Birth</h1>
+
+    <form method="POST" action="../db/update/dob">
+
+        {% csrf_token %}
+
+        <label>Old DOB:</label>
+
+        <input type="date"
+               name="old_dob"
+               value="{{ dob }}">
+
+        <br><br>
+
+        <label>New DOB:</label>
+
+        <input type="date"
+               name="new_dob"
+               required>
+
+        <br><br>
+
+        <input type="hidden"
+               name="roll_number"
+               value="{{ roll_number }}">
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+</body>
+</html>
