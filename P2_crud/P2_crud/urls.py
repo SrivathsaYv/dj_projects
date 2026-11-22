@@ -17,4 +17,6 @@ urlpatterns = [
 
     path('student/edit/roll_no', views.edit_roll_no),
     path('student/db/update/roll_no', views.update_roll_no),
+
+    path('student/delete/', views.delete_student),
 ]

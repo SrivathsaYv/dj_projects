@@ -227,3 +227,30 @@ def update_roll_no(request):
         return render(request, 'status.html', {
             'message': message
         })
+def delete_student(request):
+    if request.method == "POST":
+        roll_number = request.POST.get('roll_number')
+
+        db = sqlite3.connect(os.path.join(settings.BASE_DIR, 'db.sqlite3'))
+        cursor = db.cursor()
+
+        s1 = """
+        DELETE FROM students
+        WHERE roll_number = ?
+        """
+
+        cursor.execute(s1, (roll_number,))
+        db.commit()
+
+        if cursor.rowcount == 0:
+            message = "Student not found"
+        else:
+            message = "Student Deleted Successfully"
+
+        db.close()
+
+        return render(request, 'status.html', {
+            'message': message
+        })
+
+    return render(request, 'delete_student.html')

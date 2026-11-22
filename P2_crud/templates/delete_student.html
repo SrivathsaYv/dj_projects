@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Student</title>
+</head>
+<body>
+
+    <h2>Delete Student</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Enter Roll Number:</label>
+
+        <input type="text" name="roll_number" required>
+
+        <button type="submit">Delete</button>
+
+    </form>
+
+</body>
+</html>
