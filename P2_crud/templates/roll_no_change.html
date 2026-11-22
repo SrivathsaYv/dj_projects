@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Roll Number</title>
+</head>
+<body>
+
+    <h2>Update Roll Number</h2>
+
+    <form method="POST" action="/student/db/update/roll_no">
+        {% csrf_token %}
+
+        <label>Old Roll Number:</label>
+        <input type="text" value="{{ old_roll_no }}" readonly>
+
+        <br><br>
+
+        <label>New Roll Number:</label>
+        <input type="text" name="new_roll_no" required>
+
+        <input type="hidden" name="old_roll_no"
+               value="{{ old_roll_no }}">
+
+        <br><br>
+
+        <button type="submit">Update</button>
+    </form>
+
+</body>
+</html>

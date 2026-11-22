@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Roll Number</title>
+</head>
+<body>
+
+    <h2>Enter Existing Roll Number</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Old Roll Number:</label>
+        <input type="text" name="roll_number" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>

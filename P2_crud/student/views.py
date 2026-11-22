@@ -179,3 +179,51 @@ def update_dob(request):
         'status.html',
         {'message': 'DOB updated in DB successfully!'}
     )
+def edit_roll_no(request):
+    if request.method == "POST":
+        old_roll_no = request.POST.get('roll_number')
+
+        student = select(old_roll_no)
+
+        if not student:
+            return render(request, 'status.html', {
+                'message': 'Student not found'
+            })
+
+        return render(request, 'roll_no_change.html', {
+            'old_roll_no': old_roll_no
+        })
+
+    return render(request, 'edit_roll_no.html')
+def update_roll_no(request):
+    if request.method == "POST":
+        old_roll_no = request.POST.get('old_roll_no')
+        new_roll_no = request.POST.get('new_roll_no')
+
+        db = sqlite3.connect(os.path.join(settings.BASE_DIR, 'db.sqlite3'))
+        cursor = db.cursor()
+
+        s1 = """
+        UPDATE students
+        SET roll_number = ?
+        WHERE roll_number = ?
+        """
+
+        try:
+            cursor.execute(s1, (new_roll_no, old_roll_no))
+            db.commit()
+
+            if cursor.rowcount == 0:
+                message = "Student not found"
+            else:
+                message = "Roll Number Updated Successfully"
+
+        except sqlite3.IntegrityError:
+            message = "This roll number already exists"
+
+        finally:
+            db.close()
+
+        return render(request, 'status.html', {
+            'message': message
+        })
