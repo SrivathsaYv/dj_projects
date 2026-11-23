@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Single Page Application</title>
+    <script src="https://code.jquery.com/jquery-4.1.0.min.js"></script>
+</head>
+<body>
+    <div id="login">
+        <h3>Login</h3>
+        <form id="loginForm" action="" method="post">
+            User <input id="user" type="text" name="user">
+            Password <input id="pwd" type="password" name="pwd">
+            <input type="submit" value="Login">
+            <input type="button" value="Clear" onclick="clear_text()">
+            <input type="button" value="Signup, I'm new" onclick="showRegister()">
+        </form>
+        <p id="loginStatus"></p>
+    </div>
+
+    <div id="register" hidden>
+        <h3>Signup</h3>
+        <form id="registerForm" action="" method="post">
+            Username <input id="regUser" type="text" name="reg_user">
+            Email <input id="regEmail" type="email" name="reg_email">
+            Password <input id="regPwd" type="password" name="reg_pwd">
+            <input type="submit" value="Create Account">
+            <input type="button" value="Clear" onclick="clear_register()">
+            <input type="button" value="Back to Login" onclick="showLogin()">
+        </form>
+        <p id="registerStatus"></p>
+    </div>
+
+    <script>
+        function clear_text() {
+            $("#user").val("");
+            $("#pwd").val("");
+            $("#loginStatus").text("");
+        }
+
+        function clear_register() {
+            $("#regUser").val("");
+            $("#regEmail").val("");
+            $("#regPwd").val("");
+            $("#registerStatus").text("");
+        }
+
+        function showRegister() {
+            $("#login").prop("hidden", true);
+            $("#register").prop("hidden", false);
+        }
+
+        function showLogin() {
+            $("#register").prop("hidden", true);
+            $("#login").prop("hidden", false);
+        }
+
+        $(function () {
+            $("#loginForm").on("submit", function (event) {
+                event.preventDefault();
+                const username = $("#user").val().trim();
+                $("#loginStatus").text(
+                    username ? `Logging in as ${username}...` : "Please enter a username."
+                );
+            });
+
+            $("#registerForm").on("submit", function (event) {
+                event.preventDefault();
+                const username = $("#regUser").val().trim();
+                const email = $("#regEmail").val().trim();
+                if (!username || !email || !$("#regPwd").val()) {
+                    $("#registerStatus").text("Please fill out all signup fields.");
+                    return;
+                }
+                $("#registerStatus").text(`Account ready for ${username} (${email}).`);
+            });
+        });
+    </script>
+</body>
+</html>
