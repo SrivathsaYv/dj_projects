@@ -39,6 +39,7 @@
         }
 
         function clear_register() {
+            
             $("#regUser").val("");
             $("#regEmail").val("");
             $("#regPwd").val("");
@@ -54,26 +55,6 @@
             $("#register").prop("hidden", true);
             $("#login").prop("hidden", false);
         }
-
-        $(function () {
-            $("#loginForm").on("submit", function (event) {
-                event.preventDefault();
-                const username = $("#user").val().trim();
-                $("#loginStatus").text(
-                    username ? `Logging in as ${username}...` : "Please enter a username."
-                );
-            });
-
-            $("#registerForm").on("submit", function (event) {
-                event.preventDefault();
-                const username = $("#regUser").val().trim();
-                const email = $("#regEmail").val().trim();
-                if (!username || !email || !$("#regPwd").val()) {
-                    $("#registerStatus").text("Please fill out all signup fields.");
-                    return;
-                }
-                $("#registerStatus").text(`Account ready for ${username} (${email}).`);
-            });
         });
     </script>
 </body>
