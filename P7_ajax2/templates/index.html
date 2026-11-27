@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Ajax 2.0</title>
+</head>
+<body>
+<div id="main" >
+    <h1 id="head">Ajax 2.0</h1>
+    <input type="button" value="Click Me" onclick="toggle()">
+</div>
+<div id="para" hidden>
+    <p>This is a simple Django app with a home page...</p>
+    <input type="button" value="Click Me" onclick="toggle2()">
+</div>
+<div id="edit">
+    <p>ajax call to edit heading</p>
+    <input type="button" value="Click Me" onclick="edit_msg()">
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function toggle() {
+        $("#main").hide();
+        $("#para").show();
+    }
+
+    function toggle2() {
+        $("#main").show();
+        $("#para").hide();
+    }
+    function edit_msg() {
+        // $('#head').text('Ajax 2.0 - Edited');
+        $.ajax({
+            url: '/edit_heading/',
+            type: 'GET',
+            success: function(response) {
+                $('#head').text(response.heading);
+            },
+        });
+    }
+
+</script>
+</html>
