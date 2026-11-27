@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA 2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function register(){
+            var usr = $("#user").val();
+            var pwd = $("#pwd").val();
+            var pwd2 = $("#pwd2").val();
+            var data = {'username': usr, 'pwd': pwd, 'pwd2': pwd2}
+            console.log(usr+"::::")
+            $.ajax({
+                url: 'new_user',
+                method: 'POST',
+                data: data,
+                success: function(response){
+                    console.log(usr+"::"+pwd+"::"+data)
+                    console.log(response['status'])
+                    $("#status").text(response['status'])
+                    $("#register").fadeOut(2000);
+                    $("#login").show();
+                },
+                error: function(request, status, error){
+                    console.log("Debug:"+status+"::"+error)
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="register">
+        User: <input type="text" name="user" id="user">
+        Password: <input type="password" name="pwd" id="pwd">
+        Re-type: <input type="password" name="pwd2" id="pwd2">
+        <input type="submit" value="Signup" onclick="register()">
+    </div>
+    <div id="login" hidden>
+        <marquee behavior="scroll" direction="right">Login Page Under Construction</marquee>
+    </div> 
+    <div>
+        <h1><label for="" id="status"></label></div></h1>
+    </div>
+</body>
+</html>
